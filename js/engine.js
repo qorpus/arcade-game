@@ -80,8 +80,33 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
+
+
+    /*
+     *
+     *
+     *
+     *
+     *
+     */
+    function checkCollisions(){
+        var minCollisionX = player.x;
+        var maxCollisionX = minCollisionX + columnWidth;
+        allEnemies.forEach(function(enemy){
+            if( player.y == enemy.y ){ //they are in the same row
+                var actualX = enemy.x + columnWidth;
+                if( actualX >= minCollisionX && actualX <= maxCollisionX || enemy.x >= minCollisionX && enemy.x <= maxCollisionX ){
+                    player.handleCollision( enemy );
+                    enemy.handleCollision( enemy );
+                }
+            }
+        });
+
+    }
+
+
 
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
@@ -94,7 +119,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        player.update(dt);
     }
 
     /* This function initially draws the "game level", it will then call
@@ -171,7 +196,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-horn-girl.png'
     ]);
     Resources.onReady(init);
 
