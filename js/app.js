@@ -281,7 +281,6 @@ GameApp.prototype.icrementGemScore = function(){
     this.score += 50;
 };
 
-
 GameApp.prototype.removeGem = function( gem ){
     for(var i in this.allGamePieces){
         if( this.allGamePieces[i] === gem ){
@@ -290,8 +289,6 @@ GameApp.prototype.removeGem = function( gem ){
         }
     }
 };
-
-
 
 GameApp.prototype.resetTimer = function(){
     this.timer = this.startTimer;
