@@ -32,7 +32,7 @@ GamePiece.prototype.move = function( newX, newY ){
 };
 
 //should be overridden in subclasses to do something specifc
-GamePiece.prototype.checkNewPoistion = function( newY, newY ){
+GamePiece.prototype.checkNewPoistion = function( newX, newY ){
     return true;
 };
 
@@ -81,26 +81,26 @@ Enemy.prototype.update = function(dt) {
 
 Enemy.prototype.getType = function(){
     return "Enemy";
-}
+};
 
 
 //bug subclass of enemy
 var LadyBug = function( difficulty, row, maxColumns, maxRows, columnWidth, rowHeight ){
-    Enemy.call(this, 'images/enemy-bug.png', difficulty, row, maxColumns, maxRows, columnWidth, rowHeight )
+    Enemy.call(this, 'images/enemy-bug.png', difficulty, row, maxColumns, maxRows, columnWidth, rowHeight );
 };
 
 LadyBug.prototype = Object.create(Enemy.prototype);
 LadyBug.prototype.constructor = LadyBug;
 
 var NegateBug = function( difficulty, row, maxColumns, maxRows, columnWidth, rowHeight ){
-    Enemy.call(this, 'images/enemy-bug-negate.png', difficulty, row, maxColumns, maxRows, columnWidth, rowHeight )
+    Enemy.call(this, 'images/enemy-bug-negate.png', difficulty, row, maxColumns, maxRows, columnWidth, rowHeight );
 };
 
 NegateBug.prototype = Object.create(Enemy.prototype);
 NegateBug.prototype.constructor = NegateBug;
 
 var GrayBug = function( difficulty, row, maxColumns, maxRows, columnWidth, rowHeight ){
-    Enemy.call(this, 'images/enemy-bug-gray.png', difficulty, row, maxColumns, maxRows, columnWidth, rowHeight )
+    Enemy.call(this, 'images/enemy-bug-gray.png', difficulty, row, maxColumns, maxRows, columnWidth, rowHeight );
 };
 
 GrayBug.prototype = Object.create(Enemy.prototype);
@@ -110,7 +110,7 @@ GrayBug.prototype.constructor = GrayBug;
 
 //gem super class
 var Gem = function( spriteImage, maxColumns, maxRows, columnWidth, rowHeight ){
-    GamePiece.call( this, spriteImage, maxColumns, maxRows, columnWidth, rowHeight, Math.floor((maxColumns-1)*Math.random())*columnWidth, (1+Math.floor((maxRows-3)*Math.random()))*rowHeight, 0, -rowHeight*.35 );
+    GamePiece.call( this, spriteImage, maxColumns, maxRows, columnWidth, rowHeight, Math.floor((maxColumns-1)*Math.random())*columnWidth, (1+Math.floor((maxRows-3)*Math.random()))*rowHeight, 0, -rowHeight*0.35 );
 };
 
 Gem.prototype = Object.create(GamePiece.prototype);
@@ -123,11 +123,11 @@ Gem.prototype.handleCollision = function( collided ){
 
 Gem.prototype.getType = function(){
     return "Gem";
-}
+};
 
 //gem subclasses
 var GreenGem = function( maxColumns, maxRows, columnWidth, rowHeight ){
-    Gem.call( this, 'images/Gem Green.png', maxColumns, maxRows, columnWidth, rowHeight )
+    Gem.call( this, 'images/Gem Green.png', maxColumns, maxRows, columnWidth, rowHeight );
 };
 
 GreenGem.prototype = Object.create(Gem.prototype);
@@ -135,7 +135,7 @@ GreenGem.prototype.constructor = GreenGem;
 
 
 var BlueGem = function( maxColumns, maxRows, columnWidth, rowHeight ){
-    Gem.call( this, 'images/Gem Blue.png', maxColumns, maxRows, columnWidth, rowHeight )
+    Gem.call( this, 'images/Gem Blue.png', maxColumns, maxRows, columnWidth, rowHeight );
 };
 
 BlueGem.prototype = Object.create(Gem.prototype);
@@ -143,7 +143,7 @@ BlueGem.prototype.constructor = BlueGem;
 
 
 var OrangeGem = function( maxColumns, maxRows, columnWidth, rowHeight ){
-    Gem.call( this, 'images/Gem Orange.png', maxColumns, maxRows, columnWidth, rowHeight )
+    Gem.call( this, 'images/Gem Orange.png', maxColumns, maxRows, columnWidth, rowHeight );
 };
 
 OrangeGem.prototype = Object.create(Gem.prototype);
@@ -300,7 +300,7 @@ GameApp.prototype.resetDifficulty = function(){
 
 GameApp.prototype.resetScore = function(){
     this.score = 0;
-}
+};
 
 GameApp.prototype.update = function(dt){
     //subject time from timer
@@ -313,7 +313,7 @@ GameApp.prototype.update = function(dt){
 GameApp.prototype.renderTimer = function(){
     ctx.font = "30px Arial";
     ctx.fillStyle = "white";
-    ctx.fillText("Time Left: " + Math.round(this.timer, 2), this.maxColumns*this.columnWidth*.60 , this.textRenderY);
+    ctx.fillText("Time Left: " + Math.round(this.timer, 2), this.maxColumns*this.columnWidth*0.60 , this.textRenderY);
 };
 
 GameApp.prototype.renderScore = function(){
