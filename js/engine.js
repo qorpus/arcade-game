@@ -83,13 +83,8 @@ var Engine = (function(global) {
         checkCollisions();
     }
 
-
     /*
-     *
-     *
-     *
-     *
-     *
+     * Collision function to handle the collisions of players and game pieces
      */
     function checkCollisions(){
         var minCollisionX = gameApp.player.x;
@@ -98,9 +93,7 @@ var Engine = (function(global) {
             if( gameApp.player.y == gamePiece.y ){ //they are in the same row
                 var actualX = (gamePiece.x + columnWidth)*.98; //reduce it by 2% for better collision effects
                 var adjustedX = (gamePiece.x * 1.02); //increase x location for btter collision effects.
-                console.log( "X : " + gamePiece.x + ", ActualX:" + actualX + " -- ("+minCollisionX+","+maxCollisionX+")"  );
                 if( ( actualX > minCollisionX && actualX < maxCollisionX ) || ( adjustedX > minCollisionX && adjustedX < maxCollisionX ) ){
-                    
                     gameApp.player.handleCollision( gamePiece );
                     gamePiece.handleCollision( gamePiece );
                 }
