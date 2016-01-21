@@ -240,14 +240,14 @@ GameApp.prototype.addEnemies = function(){
         switch( random ) {  //use the random to select which gem to create
             case ( 1 ):
                 theEnemy = new LadyBug( this.difficulty, this.randomGamePieceRow(), this.maxColumns, this.maxRows, this.columnWidth, this.rowHeight );
-            break;
+                break;
             case ( 2 ):
                 theEnemy = new NegateBug( this.difficulty, this.randomGamePieceRow(), this.maxColumns, this.maxRows, this.columnWidth, this.rowHeight );
-            break;
+                break;
             case ( 3 ):
-            default:
                 theEnemy = new GrayBug( this.difficulty, this.randomGamePieceRow(), this.maxColumns, this.maxRows, this.columnWidth, this.rowHeight );
-            break;
+                break;
+            default:
         }
         this.allGamePieces.push(theEnemy);
     }
@@ -264,14 +264,14 @@ GameApp.prototype.addGems = function(){
         switch( random ) {  //use the random to select which gem to create
             case ( 1 ):
                 theGem = new GreenGem( maxColumns, maxRows, columnWidth, rowHeight );
-            break;
+                break;
             case ( 2 ):
                 theGem = new BlueGem( maxColumns, maxRows, columnWidth, rowHeight );
-            break;
+                break;
             case ( 3 ):
-            default:
                 theGem = new OrangeGem( maxColumns, maxRows, columnWidth, rowHeight );
-            break;
+                break;
+            default:
         }
         this.allGamePieces.push(theGem);
     }
