@@ -1,10 +1,10 @@
 /* Engine.js
  * This file provides the game loop functionality (update entities and render),
  * draws the initial game board on the screen, and then calls the update and
- * render methods on your player and enemy objects (defined in your app.js).
+ * render methods on your gameApp.player and gamePiece objects (defined in your app.js).
  *
  * A game engine works by drawing the entire game screen over and over, kind of
- * like a flipbook you may have created as a kid. When your player moves across
+ * like a flipbook you may have created as a kid. When your gameApp.player moves across
  * the screen, it may look like just that image/character is moving or being
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
@@ -92,14 +92,17 @@ var Engine = (function(global) {
      *
      */
     function checkCollisions(){
-        var minCollisionX = player.x;
-        var maxCollisionX = minCollisionX + columnWidth;
-        allEnemies.forEach(function(enemy){
-            if( player.y == enemy.y ){ //they are in the same row
-                var actualX = enemy.x + columnWidth;
-                if( actualX >= minCollisionX && actualX <= maxCollisionX || enemy.x >= minCollisionX && enemy.x <= maxCollisionX ){
-                    player.handleCollision( enemy );
-                    enemy.handleCollision( enemy );
+        var minCollisionX = gameApp.player.x;
+        var maxCollisionX = (minCollisionX + columnWidth);
+        gameApp.allGamePieces.forEach(function(gamePiece){
+            if( gameApp.player.y == gamePiece.y ){ //they are in the same row
+                var actualX = (gamePiece.x + columnWidth)*.98; //reduce it by 2% for better collision effects
+                var adjustedX = (gamePiece.x * 1.02); //increase x location for btter collision effects.
+                console.log( "X : " + gamePiece.x + ", ActualX:" + actualX + " -- ("+minCollisionX+","+maxCollisionX+")"  );
+                if( ( actualX > minCollisionX && actualX < maxCollisionX ) || ( adjustedX > minCollisionX && adjustedX < maxCollisionX ) ){
+                    
+                    gameApp.player.handleCollision( gamePiece );
+                    gamePiece.handleCollision( gamePiece );
                 }
             }
         });
@@ -109,17 +112,18 @@ var Engine = (function(global) {
 
 
     /* This is called by the update function and loops through all of the
-     * objects within your allEnemies array as defined in app.js and calls
+     * objects within your gameApp.allGamePieces array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
-     * player object. These update methods should focus purely on updating
+     * gameApp.player object. These update methods should focus purely on updating
      * the data/properties related to the object. Do your drawing in your
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
-            enemy.update(dt);
+        gameApp.allGamePieces.forEach(function(gamePiece) {
+            gamePiece.update(dt);
         });
-        player.update(dt);
+        gameApp.player.update(dt);
+        gameApp.update(dt);
     }
 
     /* This function initially draws the "game level", it will then call
@@ -166,17 +170,22 @@ var Engine = (function(global) {
 
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
-     * on your enemy and player entities within app.js
+     * on your gamePiece and gameApp.player entities within app.js
      */
     function renderEntities() {
-        /* Loop through all of the objects within the allEnemies array and call
+        /* Loop through all of the objects within the gameApp.allGamePieces array and call
          * the render function you have defined.
          */
-        allEnemies.forEach(function(enemy) {
-            enemy.render();
+        gameApp.allGamePieces.forEach(function(gamePiece) {
+            gamePiece.render();
         });
 
-        player.render();
+        gameApp.player.render();
+
+        //render score
+        gameApp.renderScore();
+        //render game timer
+        gameApp.renderTimer();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -196,8 +205,13 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
+        'images/enemy-bug-negate.png',
+        'images/enemy-bug-gray.png',
         'images/char-boy.png',
-        'images/char-horn-girl.png'
+        'images/char-horn-girl.png',
+        'images/Gem Blue.png',
+        'images/Gem Green.png',
+        'images/Gem Orange.png'
     ]);
     Resources.onReady(init);
 
